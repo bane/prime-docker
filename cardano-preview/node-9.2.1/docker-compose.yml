@@ -28,7 +28,7 @@ services:
       # change here affects - db-sync, wallet-api, ogmios
       # - node-ipc:/ipc
       - ./node-ipc:/ipc
-    restart: on-failure
+    restart: always
     healthcheck:
       # Ping the EKG port to see if it responds.
       # Assuming if EKG isn't up then the rest of cardano-node isn't either.
@@ -69,7 +69,7 @@ services:
     depends_on:
       preview-relay:
         condition: service_healthy
-    restart: on-failure
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -94,7 +94,7 @@ services:
         ruby app.rb
       "
     network_mode: "host"
-    restart: on-failure
+    restart: always
     depends_on:
       wallet-api:
         condition: service_started
@@ -106,7 +106,7 @@ services:
   # requires: preview-relay
   ogmios:
     image: cardanosolutions/ogmios:v6.8.0
-    restart: on-failure
+    restart: always
     command: [
       "--host", "0.0.0.0",
       "--node-socket", "/ipc/node.socket",
@@ -143,7 +143,7 @@ services:
       - ${POSTGRES_PORT:-5434}:5432
     volumes:
       - postgres:/var/lib/postgresql/data
-    restart: on-failure
+    restart: always
     healthcheck:
       # Use pg_isready to check postgres is running. Substitute different
       # user `postgres` if you've setup differently to config/pgpass-mainnet
@@ -194,7 +194,7 @@ services:
       "--socket-path",
       "/node-ipc/node.socket"
      ]
-    restart: on-failure
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -244,7 +244,7 @@ services:
       - postgres_db
 #    volumes:
 #      - ./config/blockfrost:/app/config
-    restart: on-failure
+    restart: always
     logging:
       driver: "json-file"
       options:
