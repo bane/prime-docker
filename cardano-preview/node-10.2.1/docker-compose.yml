@@ -1,5 +1,5 @@
 version: "3.9"
-name: cardano-preview-tools-9_2_1
+name: cardano-preview-tools-10_2_1
 
 services:
   # =============
@@ -9,7 +9,7 @@ services:
   # standalone
   # prerequisite for: wallet-api, ogmios, dbsync
   preview-relay:
-    image: ghcr.io/intersectmbo/cardano-node:9.2.1
+    image: ghcr.io/intersectmbo/cardano-node:10.2.1
     environment:
       - CARDANO_BLOCK_PRODUCER=false
       - CARDANO_CONFIG=/config/configuration.json
@@ -48,7 +48,7 @@ services:
   #
   # requires: preview-relay
   wallet-api:
-    image: cardanofoundation/cardano-wallet:2023.12.18
+    image: cardanofoundation/cardano-wallet:2025.1.7
     volumes:
       - wallet-api-data:/wallet-db
       # use either docker volume (see volumes below) or local host folder if interracting from host over ipc
